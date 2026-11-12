@@ -46,6 +46,20 @@ Use quando já tem execução de código/comando no host (shell reverso, `winrm`
 | **mimikatz.exe** | 🔵 | `privilege::debug` + `sekurlsa::logonpasswords` | Credenciais em memória |
 | **PrintSpoofer / GodPotato / JuicyPotato** | 🔵 | ver seção SeImpersonate | Elevar de serviço para SYSTEM |
 | **secretsdump.py** | 🐧 local | `secretsdump.py -sam sam.hiv -system system.hiv local` | Extrair hashes de SAM/SYSTEM |
+| **SessionGopher** | 🔵 PS | `. .\SessionGopher.ps1; Invoke-SessionGopher -Thorough` | Descriptografa sessões salvas: PuTTY/WinSCP/FileZilla/RDP/SuperPuTTY |
+| **JAWS** | 🔵 PS | `powershell -ep bypass .\jaws-enum.ps1 -OutputFilename jaws.txt` | Enum geral em PowerShell 2.0 (host antigo sem winPEAS) |
+| **PipeList** | 🔵 Sysinternals | `pipelist.exe /accepteula` | Lista named pipes (recon p/ SeImpersonate/Potato) |
+| **PsService** | 🔵 Sysinternals | `psservice.exe security <serviço>` | DACL/estado de serviço sem accesschk |
+
+---
+
+> [!note]+ 📝 Obs — ferramentas da lição "Useful Tools" que faltavam (add nov/2026)
+> Comparando com a lista do HTB, estas 4 não estavam na nota e entraram na tabela acima. **WES-NG** e **Watson** já estavam (como `wesng`/`wes.py` e `Sherlock/Watson` — ver seção 9). Como usar e QUANDO:
+> - 🥇 **SessionGopher** — o mais valioso pra *loot*. `Invoke-SessionGopher -Thorough` varre registro + disco e **descriptografa** credenciais salvas em PuTTY/WinSCP/FileZilla/RDP/SuperPuTTY. Admin de infra guarda senha de servidor nessas ferramentas → caminho direto pra pivot/escalada. Roda como qualquer user; `-AllDomain` enumera via AD.
+> - **JAWS** — plano B do winPEAS em host **antigo/sem internet**: só precisa de PowerShell 2.0 (presente desde Win7/2008). `-OutputFilename` salva pra exfil. Redundante onde o winPEAS roda.
+> - **PipeList** (Sysinternals) — lista os **named pipes** ativos. No vetor SeImpersonate/Potato, confirma se o pipe do Spooler existe ou acha pipe custom de serviço privilegiado.
+> - **PsService** (Sysinternals) — alternativa ao `accesschk`/`sc`: `psservice security <svc>` mostra o **DACL** do serviço (quem pode `SERVICE_CHANGE_CONFIG`). Bom quando o accesschk está ausente/bloqueado.
+> 💡 Tudo sobe em `C:\Windows\Temp` (BUILTIN\Users tem write) e **é flagado por AV/EDR** — em engajamento evasivo, compilar do source / ofuscar.
 
 ---
 

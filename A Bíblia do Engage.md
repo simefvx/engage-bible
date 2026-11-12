@@ -31,6 +31,7 @@ dificuldade: intermediária
 | 11 | [[Fase 10 - Privilege Escalation]] | Linux e Windows até root/SYSTEM. |
 | 12 | [[Fase 11 - Pós-Exploração]] | Credenciais, movimento lateral, limpeza. |
 | 13 | [[Fase 12 - Relatório e Encerramento]] | Documentar, classificar risco, entregar. |
+| ★ | [[Mapa Mental - Local PrivEsc e Active Directory]] | **Mapa mental:** como privesc local vira comprometimento de domínio (pontes + fluxo). |
 
 ---
 
